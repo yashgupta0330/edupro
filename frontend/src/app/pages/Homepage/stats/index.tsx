@@ -84,7 +84,7 @@ export default function StatsSection() {
           <span className="inline-flex items-center px-6 py-2 rounded-full bg-[#E6F7F9] text-[#0D9488] text-sm font-bold tracking-[0.05em] uppercase border border-[#0D9488]/10 shadow-sm transition-all duration-300 hover:scale-105">
             Best ERP Features
           </span>
-          <h2 className="text-[2.75rem] md:text-[3.5rem] lg:text-[4rem] font-black text-[#111827] tracking-tight leading-[1.1] max-w-4xl mx-auto">
+          <h2 className="heading-2">
             Smart Features, Better Outcomes.
           </h2>
         </div>

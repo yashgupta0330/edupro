@@ -11,7 +11,7 @@ export default function WhyServitium() {
             <span className="inline-block px-4 py-1.5 rounded-full border border-[#D5F5F6] bg-[#E1F9FA] text-[#26C1C9] text-sm font-semibold mb-4 shadow-sm">
               Metric
             </span>
-            <h2 className="heading-1 mb-6 text-left max-w-xl leading-tight">
+            <h2 className="heading-2 mb-6 text-left ">
               Trusted by Institutions. Proven by Results. 
               
             </h2>
