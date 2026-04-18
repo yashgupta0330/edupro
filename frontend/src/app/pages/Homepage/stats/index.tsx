@@ -1,183 +1,104 @@
 "use client";
 
-import { StatCardProps } from "@/types/stat";
 import Image from "next/image";
-import { useState } from "react";
+import { PiInfinity } from "react-icons/pi";
+import { TbTargetArrow } from "react-icons/tb";
+import { HiOutlineHeart } from "react-icons/hi2";
+import { IoPeopleOutline, IoLinkOutline } from "react-icons/io5";
+import { FaArrowRight } from "react-icons/fa6";
 import "./stat.css";
 
-const statsData: StatCardProps[] = [
+const features = [
   {
-    icon: "/stats/house.png",
-    alt: "Households",
-    bgMobile: "bg-white border border-[#5AAEDB] xl:border-0 rounded-xl xl:rounded-none",
-    bgDesktop: "xl:bg-[#C3DFF2]", // Base color for active state
-    filterMobile: "",
-    filterDesktop: "",
-    title: "Indian Households Served",
-    value: "15M+",
-    valueClass: "text-gray-900",
-    text: "Delivering reliable, consistent service experiences on a scale",
-    hrColor: "border-[#0284c7]",
-    textColor: "text-gray-900",
-  },
-   {
-    icon: "/stats/client.png",
-    alt: "Clients",
-    bgMobile: "bg-white border border-[#CC6E48] xl:border-0 rounded-xl xl:rounded-none",
-    bgDesktop: "xl:bg-[#EAD2CC]",
-    filterMobile: "",
-    filterDesktop: "xl:filter-none xl:brightness-100 xl:invert-0",
-    title: "Enterprise Clients",
-    value: "40+",
-    valueClass: "text-gray-900 xl:group-hover:text-white",
-    text: "Chosen by leading brands  to run mission-critical service ops.",
-    hrColor: "border-[#C75324]",
-    textColor: "text-gray-900 xl:group-hover:text-white",
+    title: "Student Lifecycle",
+    description: "Plan, manage and track academic activities with a centralized and structured learning system.",
+    image: "/feature/Lattice UI of Performance.png",
+    icon: <PiInfinity className="text-gray-700" size={26} />,
+    span: "lg:col-span-3",
   },
   {
-    icon: "/stats/ticket.png",
-    alt: "Tickets",
-    bgMobile: "bg-white border border-[#CC6E48] xl:border-0 rounded-xl xl:rounded-none",
-    bgDesktop: "xl:bg-[#EAD2CC]",
-    filterMobile: "",
-    filterDesktop: "xl:filter-none xl:brightness-100 xl:invert-0",
-    title: "Tickets Handled Monthly",
-    value: "3M+",
-    valueClass: "text-gray-900 xl:group-hover:text-white",
-    text: "Driving faster resolutions and smoother customer journeys",
-    hrColor: "border-[#C75324]",
-    textColor: "text-gray-900 xl:group-hover:text-white",
+    title: "Academic Management",
+    description: "Easily plan, organize and manage your curriculum, classes and daily activities from one place with a simple and structured system.",
+    image: "/feature/Lattice UI of Goals.png",
+    icon: <TbTargetArrow className="text-gray-700" size={26} />,
+    span: "lg:col-span-3",
   },
-   {
-    icon: "/stats/dollar.png",
-    alt: "Transactions",
-    bgMobile: "bg-white border border-[#5AAEDB] xl:border-0 rounded-xl xl:rounded-none",
-    bgDesktop: "xl:bg-[#C3DFF2]",
-    filterMobile: "",
-    filterDesktop: "",
-    title: "Monthly Transactions",
-    value: "$100M+",
-    valueClass: "text-gray-900",
-    text: "Secure & high-value service transactions with confidence",
-    hrColor: "border-[#0284c7]",
-    textColor: "text-gray-900",
+  {
+    title: "Fees Management",
+    description: "Plan, manage and track examinations efficiently with a centralized and structured system.",
+    image: "/feature/Lattice UI of Engagement.png",
+    icon: <HiOutlineHeart className="text-gray-700" size={26} />,
+    span: "lg:col-span-2",
+  },
+  {
+    title: "Parent Engagement",
+    description: "Stay connected with real-time updates, effortless communication and clear visibility into progress.",
+    image: "/feature/Lattice UI of Grow.png",
+    icon: <IoPeopleOutline className="text-gray-700" size={26} />,
+    span: "lg:col-span-2",
+  },
+  {
+    title: "Security Management",
+    description: "Manage, track and control financial operations efficiently with a centralized and structured system.",
+    image: "/feature/Lattice UI of Compensation.png",
+    icon: <IoLinkOutline className="text-gray-700" size={26} />,
+    span: "lg:col-span-2",
   },
 ];
 
-function StatCard({
-  icon,
-  alt,
-  bgMobile,
-  bgDesktop,
-  filterMobile,
-  filterDesktop,
-  title,
-  value,
-  valueClass,
-  text,
-  hrColor,
-  textColor,
-  isActive,
-  onMouseEnter,
-}: StatCardProps) {
-  // Determine which card this is
-  const isHouseholds = title === "Indian Households Served" && value === "15M+";
-  const isTransactions = title === "Monthly Transactions" && value === "$100M+";
-  const isEnterpriseClients = title === "Enterprise Clients" && value === "40+";
-  const isTickets = title === "Tickets Handled Monthly" && value === "3M+";
-
+const FeatureCard = ({ title, description, image, icon, span }: any) => {
   return (
-    <div
-      onMouseEnter={onMouseEnter}
-      className={`flex flex-col items-start text-left px-4 xl:px-6 py-4 xl:py-8 transition-all duration-300 cursor-pointer group h-36 xl:h-90 overflow-hidden ${bgMobile} ${isActive ? bgDesktop : 'xl:bg-[#f4f6fc]'} `}
-    >
-
-      {/* Mobile: Icon + Title in a row */}
-      <div className="flex items-center gap-6 mb-6 xl:hidden w-full">
-        <div className={`shrink-0 ${filterMobile}`}>
-          <Image src={icon} alt={alt} width={48} height={48} />
-        </div>
-        <p
-          className={`text-lg font-semibold ${textColor} transition-colors duration-300`}
-        >
-          {title}
-        </p>
-      </div>
-
-      {/* Desktop: Icon and Title stacked */}
-      <div className="hidden xl:block w-full">
-        <div className={`mb-3 ${filterDesktop}`}>
-          <Image src={icon} alt={alt} width={48} height={48} />
-        </div>
-        <p
-          className={`mb-8 text-lg font-semibold leading-7 ${textColor} ${isActive && (isHouseholds || isTransactions) ? '!text-[#0284C7]' : ''} ${isActive && (isEnterpriseClients || isTickets) ? '!text-[#C75324]' : ''} transition-colors duration-300`}
-        >
-          {title}
-        </p>
-      </div>
-
-      {/* Group 2: Value and Text */}
-      <div className="w-full flex-1 flex flex-col justify-end">
-        {/* Mobile View */}
-        <div className="xl:hidden w-full text-left">
-          <h3
-          className={`mb-3 text-left text-[2rem] font-semibold leading-10 ${valueClass} ${(isHouseholds || isTransactions) ? 'group-hover:text-[#0284C7]' : ''} ${(isEnterpriseClients || isTickets) ? 'group-hover:text-[#C75324]' : ''} transition-colors duration-300`}
-          >
-            {value}
-          </h3>
-        </div>
-
-        {/* Desktop View */}
-        <div className="hidden xl:block w-full relative overflow-hidden text-left" style={{ minHeight: '140px' }}>
-          <div className="w-full text-left">
-            <h3
-          className={`mb-3 text-left text-[3rem] font-semibold leading-15 transition-transform duration-500 ease-in-out ${isActive ? '-translate-y-2' : ''} ${valueClass} ${isActive && (isHouseholds || isTransactions) ? '!text-[#0284C7]' : ''} ${isActive && (isEnterpriseClients || isTickets) ? '!text-[#C75324]' : ''} transition-colors duration-300`}
-            >
-              {value}
-            </h3>
-            <div className={`w-full transition-all duration-500 ease-in-out ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}>
-              <hr className={`w-full border-t-2 mb-3 ${hrColor}`} />
-              <p
-                className="text-base leading-5.5 text-[rgba(70,75,104,0.8)]"
-              >
-                {text}
-              </p>
-            </div>
+    <div className={`col-span-1 ${span} bg-white rounded-[2rem] border border-gray-100 p-6 lg:p-10 flex flex-col h-full transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 group feature-card-hover`}>
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-4">
+          <div className="shrink-0 scale-110">
+            {icon}
           </div>
+          <h3 className="text-xl lg:text-[1.75rem] font-bold text-[#111827] leading-tight transition-colors duration-300 group-hover:text-[#003B73]">{title}</h3>
         </div>
+        <div className="shrink-0 w-10 h-10 rounded-full bg-[#001D3D] flex items-center justify-center text-white transition-all duration-500 group-hover:bg-[#0D9488] group-hover:shadow-[0_0_20px_rgba(13,148,136,0.3)]">
+          <FaArrowRight size={16} className="transition-transform duration-500 group-hover:rotate-[-45deg]" />
+        </div>
+      </div>
+      <p className="text-gray-500 text-[1.05rem] leading-relaxed mb-10 max-w-[95%]">
+        {description}
+      </p>
+      <div className="mt-auto relative w-full aspect-[16/10] bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-[inset_0_2px_10px_rgba(0,0,0,0.03)]">
+        <Image 
+          src={image} 
+          alt={title} 
+          fill 
+          className="object-contain object-center transition-transform duration-1000 ease-out feature-img p-2"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
       </div>
     </div>
   );
-}
+};
 
 export default function StatsSection() {
-  const [hoveredIndex, setHoveredIndex] = useState<number>(0);
-
   return (
-    <section className="stats-section flex justify-center py-16" style={{ background: 'rgba(244, 246, 252, 1)', minHeight: 'auto' }}>
-      <div className=" container-fluid  w-full ">
-        {/* Space above heading ensured by py-16 on section and no extra top margin or 64px if needed */}
-        <div className="text-center "> 
-          <h2 className="text-center mb-4 heading-2">
-            Transforming Service Into Business Growth
+    <section className="features-section ">
+      <div className="max-w-[1400px] mx-auto">
+        <div className="text-center mb-16 space-y-5">
+          <span className="inline-flex items-center px-6 py-2 rounded-full bg-[#E6F7F9] text-[#0D9488] text-sm font-bold tracking-[0.05em] uppercase border border-[#0D9488]/10 shadow-sm transition-all duration-300 hover:scale-105">
+            Best ERP Features
+          </span>
+          <h2 className="text-[2.75rem] md:text-[3.5rem] lg:text-[4rem] font-black text-[#111827] tracking-tight leading-[1.1] max-w-4xl mx-auto">
+            Smart Features, Better Outcomes.
           </h2>
-          <p className="sub-description mt-4 text-center xl:max-w-[70%] mx-auto">
-            ServitiumCRM turns customer service into a growth driver by improving operational efficiency, revenue impact, and long-term customer value.
-          </p>
         </div>
-        
-        <div 
-          className="grid grid-cols-1 xl:grid-cols-4 gap-4 xl:gap-4.5 mt-10 xl:mt-20"
-          onMouseLeave={() => setHoveredIndex(0)}
-        >
-          {statsData.map((item, idx) => (
-            <StatCard 
-              key={idx} 
-              {...item} 
-              isActive={hoveredIndex === idx} 
-              onMouseEnter={() => setHoveredIndex(idx)}
-            />
+
+        <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 mb-20">
+          {features.map((feature, index) => (
+            <FeatureCard key={index} {...feature} />
           ))}
+        </div>
+
+        <div className="flex justify-center">
+          <button className="bg-[#001D3D] text-white px-12 py-5 rounded-full font-bold text-lg flex items-center gap-3 transition-all duration-500 hover:bg-[#003B73] hover:shadow-[0_15px_30px_rgba(0,29,61,0.25)] hover:scale-105 active:scale-95 custom-button-shimmer">
+            View More <FaArrowRight size={18} />
+          </button>
         </div>
       </div>
     </section>
