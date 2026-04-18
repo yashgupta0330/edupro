@@ -1,7 +1,5 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import "./brand.css";
 
 export default function BrandPage() {
   const brands = [
@@ -10,144 +8,31 @@ export default function BrandPage() {
     { name: "Sharp", logo: "/brand/sharp.png" },
     { name: "Fujita", logo: "/brand/fujita.png" },
     { name: "Faber", logo: "/brand/faber.png" },
-    { name: "Cera", logo: "/brand/cera.png" },
-    { name: "Vestar", logo: "/brand/vestar.png" },
-    { name: "Axiom", logo: "/brand/axiom.png" },
-    { name: "Anchor", logo: "/brand/anchor.png" },
-    { name: "Eltech", logo: "/brand/eltech.png" },
-    { name: "Zeco", logo: "/brand/zeco.png" },
-    { name: "Polycao", logo: "/brand/polycao.png" },
-    { name: "Nohon Kohden", logo: "/brand/nohon.png" },
-    { name: "Kenstar", logo: "/brand/kenstar.png" },
-    { name: "Inalsa", logo: "/brand/inalsa.png" },
-    { name: "GM", logo: "/brand/gm.png" },
-    { name: "Cera", logo: "/brand/cera.png" },
-    { name: "Vestar", logo: "/brand/vestar.png" },
-    { name: "Axiom", logo: "/brand/axiom.png" },
-    { name: "Anchor 2", logo: "/brand/anchor.png" },
-    { name: "Eltech 2", logo: "/brand/eltech.png" },
-    { name: "Zeco 2", logo: "/brand/zeco.png" },
-    { name: "Polycao 2", logo: "/brand/polycao.png" },
-    { name: "USHA 2", logo: "/brand/usha.png" },
-    { name: "Hindware", logo: "/brand/hindware.png" },
-    { name: "Assa Abloy", logo: "/brand/assa.png" },
-    { name: "Attomate", logo: "/brand/attomate.png" },
-    { name: "Borosil", logo: "/brand/borosil.png" },
-    { name: "Brita", logo: "/brand/brita.png" },
-    { name: "Butterfly", logo: "/brand/butterfly.png" },
-    { name: "Eveready", logo: "/brand/eveready.png" },
-    { name: "Finolex", logo: "/brand/finolex.png" },
-    { name: "Geberit", logo: "/brand/geberit.png" },
-    { name: "Johnson", logo: "/brand/johnson.png" },
-    { name: "Kohler", logo: "/brand/kohler.png" },
-    { name: "RR", logo: "/brand/rr.png" },
-    { name: "Sintex", logo: "/brand/sintex.png" },
-    { name: "Symphony", logo: "/brand/symphony.png" },
-    { name: "VNT", logo: "/brand/vnt.png" },
-    { name: "Wonderchef", logo: "/brand/wonderchef.png" },
   ];
 
-  const visibleSlots = Math.min(25, brands.length);
-  const [visibleBrands, setVisibleBrands] = useState(
-    Array.from({ length: visibleSlots }, (_, idx) => idx),
-  );
-  const [animatingSlot, setAnimatingSlot] = useState<number | null>(null);
-  const [nextBrand, setNextBrand] = useState<number | null>(null);
-  const currentSlotRef = useRef(0);
-  const nextBrandCursorRef = useRef(visibleSlots % brands.length);
-  const visibleBrandsRef = useRef(visibleBrands);
-
-  useEffect(() => {
-    visibleBrandsRef.current = visibleBrands;
-  }, [visibleBrands]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const slotToAnimate = currentSlotRef.current;
-      let newBrandIndex = nextBrandCursorRef.current;
-
-      if (
-        brands.length > 1 &&
-        newBrandIndex === visibleBrandsRef.current[slotToAnimate]
-      ) {
-        newBrandIndex = (newBrandIndex + 1) % brands.length;
-      }
-
-      setNextBrand(newBrandIndex);
-      setAnimatingSlot(slotToAnimate);
-
-      setTimeout(() => {
-        setVisibleBrands((prev) => {
-          const updated = [...prev];
-          updated[slotToAnimate] = newBrandIndex;
-          visibleBrandsRef.current = updated;
-          return updated;
-        });
-        setAnimatingSlot(null);
-        setNextBrand(null);
-      }, 520);
-
-      currentSlotRef.current = (currentSlotRef.current + 1) % visibleSlots;
-      nextBrandCursorRef.current = (newBrandIndex + 1) % brands.length;
-    }, 1200);
-
-    return () => clearInterval(interval);
-  }, [brands.length, visibleSlots]);
-
   return (
-    <section className="container-fluid bg-white">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-full bg-white py-12 md:py-16">
+      <div >
         {/* Heading */}
-        <h2 className="heading-2 text-center">
-          Trusted by industry leaders across regions
-        </h2>
-        <p className="sub-description text-center md:max-w-[65%] md:mx-auto mt-4">
-          With 20+ years of service delivery expertise, brands trust
-          ServitiumCRM to run complex after-sales operations reliably and
-          scalable customer experiences.
+        <p className="text-center text-[#535862] font-medium text-[15px] md:text-base mb-12">
+          Trusted by 500+ Institutions Across India
         </p>
 
-        {/* Brand Grid - 5x5 on desktop */}
-        <div className="mt-6 md:mt-15">
-          <div className="grid grid-cols-5 ">
-            {visibleBrands.map((brandIndex, slotIndex) => {
-              const brand = brands[brandIndex];
-              const isAnimating = animatingSlot === slotIndex;
-              const upcomingBrand =
-                nextBrand !== null ? brands[nextBrand] : null;
-
-              return (
-              <div
-                key={slotIndex}
-                className="flex items-center justify-center relative overflow-hidden h-14 md:h-20"
-              >
-                <div
-                  className={`absolute inset-0 flex items-center justify-center ${isAnimating ? "animate-slide-up" : ""}`}
-                >
-                  <Image
-                    src={brand.logo}
-                    alt={brand.name}
-                    width={240}
-                    height={60}
-                    className="brand-logo-image object-contain max-w-full max-h-full"
-                  />
-                </div>
-
-                {isAnimating && upcomingBrand && (
-                  <div className="absolute inset-0 flex items-center justify-center animate-fade-in-from-bottom">
-                    <Image
-                      src={upcomingBrand.logo}
-                      alt={upcomingBrand.name}
-                      width={140}
-                      height={60}
-                      className="brand-logo-image object-contain max-w-full max-h-full"
-                    />
-                  </div>
-                )}
-              </div>
-            );
-            })}
-          </div>
+        {/* Brand Row */}
+        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-10 md:gap-x-12 lg:gap-x-16">
+          {brands.map((brand, index) => (
+            <div 
+              key={index} 
+              className="flex items-center justify-center"
+            >
+              <Image
+                src={brand.logo}
+                alt={brand.name}
+                width={160}
+                height={60}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>
