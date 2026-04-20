@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function IndustriesSection() {
   return (
-    <section className="py-12 md:py-24 bg-white overflow-hidden">
+    <section >
       <div>
         <div className="relative w-full  rounded-3xl overflow-hidden ">
           <Image
